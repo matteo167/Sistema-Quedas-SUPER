@@ -1,0 +1,14 @@
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.99      0.98      0.99       160
+           1       0.98      0.99      0.99       160
+
+    accuracy                           0.99       320
+   macro avg       0.99      0.99      0.99       320
+weighted avg       0.99      0.99      0.99       320
+
+Confusion Matrix:
+[[157   3]
+ [  1 159]]
+Number of parameters in the saved model: 86733
