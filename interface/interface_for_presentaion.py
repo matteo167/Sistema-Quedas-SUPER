@@ -12,8 +12,8 @@ from keras import layers
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
 from keras.callbacks import EarlyStopping
 
-loaded_model = keras.models.load_model('trained_model_keras_nlp.keras')
-# loaded_model = keras.models.load_model('trained_model_FNetEcoder.keras')
+# loaded_model = keras.models.load_model('trained_model_keras_nlp.keras')
+loaded_model = keras.models.load_model('trained_model_FNetEcoder.keras')
 # loaded_model = keras.models.load_model('trained_model_MLPMixer.keras')
 
 mp_pose = mp.solutions.pose
@@ -74,7 +74,7 @@ while True:
                     cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)
 
             
-            if pontosVisiveis < 30:
+            if pontosVisiveis < 15:
                 textoAtual = "Pontos insuficientes"
                 cor = (255, 255, 0)
 
