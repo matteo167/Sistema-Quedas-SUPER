@@ -9,7 +9,7 @@ This repository contains the development of a fall detection system, initiated u
   `pip install -r requirements.txt`
 - To execute the model, run the following command:
 
-  `python3 interface_with_caption.py`
+  `python3 interface_no_caption.py`
 
 
 
