@@ -11,10 +11,19 @@ from tensorflow import keras
 from keras import layers
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
 from keras.callbacks import EarlyStopping
+ 
 
-# loaded_model = keras.models.load_model('trained_model_keras_nlp.keras')
-loaded_model = keras.models.load_model('trained_model_FNetEcoder.keras')
-# loaded_model = keras.models.load_model('trained_model_MLPMixer.keras')
+print('1: Transformer')
+print('2: Fnet')
+print('3: MLP-Mixer')
+option = input("Choose a model: ")
+
+if option == "1":
+    loaded_model = keras.models.load_model('../models/trained_model_keras_nlp.keras')
+elif option == "2":
+    loaded_model = keras.models.load_model('../models/trained_model_FNetEcoder.keras')
+elif option == "3":
+    loaded_model = keras.models.load_model('../models/trained_model_MLPMixer.keras')
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
