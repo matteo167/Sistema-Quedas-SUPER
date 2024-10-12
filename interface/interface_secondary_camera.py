@@ -1,13 +1,8 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import os
-import pandas as pd
-import tensorflow as tf
 from tensorflow import keras
-from keras import layers
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
-from keras.callbacks import EarlyStopping
 
 print('1: Transformer')
 print('2: Fnet')
