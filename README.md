@@ -6,7 +6,7 @@ This repository contains the development of a fall detection system, initiated u
 
 - Run the following command to install the required dependencies
 
-  `pip install -r requeriments.txt`
+  `pip install -r requirements.txt`
 
 
 
