@@ -3,9 +3,10 @@ import mediapipe as mp
 import numpy as np
 import tensorflow as tf
 from picamera2 import Picamera2
+from sklearn.metrics import accuracy_score
 
 # Carrega o modelo TFLite
-model_path = '../models/model.tflite'
+model_path = '../models/model1.tflite'
 interpreter = tf.lite.Interpreter(model_path=model_path)
 interpreter.allocate_tensors()
 
@@ -29,7 +30,6 @@ cor = (255, 0, 0)
 
 while True:
     frame = picam2.capture_array()
-    frame = cv2.flip(frame, 1)  # Inverte a imagem horizontalmente
 
     results = pose.process(frame)
 

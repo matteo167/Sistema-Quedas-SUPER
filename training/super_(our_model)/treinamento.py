@@ -70,8 +70,8 @@ def geraNp (pasta):
     
     return dados
 
-quedas = geraNp("key_not_quedas_v2")
-non_quedas = geraNp("key_quedas_v2")
+quedas = geraNp("../../dataset/key_not_quedas_v2")
+non_quedas = geraNp("../../dataset/key_quedas_v2")
 
 dados = np.concatenate((quedas, non_quedas), axis=0)
 rotulos = np.array([0] * len(quedas) + [1] * len(non_quedas))
@@ -94,8 +94,8 @@ position_embeddings = SinePositionEncoding()(input)
 input_position = input + position_embeddings
 
 
-x = TransformerEncoder(intermediate_dim=64, num_heads=8)(input_position)
-# x = FNetEncoder(intermediate_dim=64)(input_position)
+#x = TransformerEncoder(intermediate_dim=64, num_heads=8)(input_position)
+x = FNetEncoder(intermediate_dim=64)(input_position)
 # x = MLPMixerLayer(44, intermediate_dim=132, dropout_rate=0)(input_position)
 
 
@@ -122,7 +122,7 @@ early_stopping = EarlyStopping(monitor='val_loss',
 
 model.fit(X_train, y_train, epochs=1000, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
 
-model.save('trained_model.keras')
+model.save('../../models/fnet_model', save_format = 'tf')
 
 print('Evaluate')
 model.evaluate(X_test, y_test)
