@@ -60,5 +60,5 @@ tflite_model = converter.convert()
 tf.lite.experimental.Analyzer.analyze(model_content=tflite_model, gpu_compatibility=True)
 
 # Save the model.
-with open('../models/model1.tflite', 'wb') as f:
+with open('../models/models_tflite/fnet.tflite', 'wb') as f:
   f.write(tflite_model)
