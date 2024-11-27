@@ -7,24 +7,17 @@ from picamera2.encoders import Encoder
 
 # Set up the camera
 # 640x480 resolution
-# Null encoder is being used ( i dont know if a encoder could be helpful here, need to check)
+# Null encoder is being used (i dont know if a encoder could be helpful here, need to check)
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration(main={"format": "RGB888", "size": (640, 480)}, raw={}, encode="raw")
 picam2.configure(video_config)
 encoder = Encoder() # null encoder
 
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose()
-
-
-# The model being used is on 16x8 mode
-# The default delegate could not handle this kind of quantization, so Arm nn delegate is being used
-# I need to investigate why the Arm nn delegate is returning warnings
-delegate_lib = tf.lite.experimental.load_delegate('/home/rasp/Downloads/armdelegate/delegate/libarmnnDelegate.so', options={"backends": "CpuRef"})
+pose = mp_pose.Pose(model_complexity=0)
 
 # Load the model
-interpreter = tf.lite.Interpreter(model_path='../models/models_tflite/fnet.tflite',
-                                             experimental_delegates=[delegate_lib])
+interpreter = tf.lite.Interpreter(model_path='../models/models_tflite/fnet_float_quantization.tflite')
 interpreter.allocate_tensors()
 
 # Input details is basically the expected input shape
@@ -35,8 +28,8 @@ output_details = interpreter.get_output_details()
 # Begin the recording
 picam2.start_recording(encoder, "test.raw")
 
-frame_buffer = np.empty((1, 44, 132)) # The input of the model is a 3D array
-frame_data = np.empty((33,4)) # This is the structure where the x,y,z and visibility is placed during the capture of the frame
+frame_buffer = np.zeros((1, 44, 132)) # The input of the model is a 3D array
+frame_data = np.zeros((33,4)) # This is the structure where the x,y,z and visibility is placed during the capture of the frame
 fall_buffer = [0, 0, 0] 
 
 status = "Loading..."
@@ -77,7 +70,7 @@ while True:
                 fall_buffer.append(0)
                 status = "Stabilized"
                 color = (0, 255, 0)
-
+        
         # Draw landmarks
         visible_dots = 0
         for landmark in results.pose_landmarks.landmark:
@@ -92,7 +85,8 @@ while True:
             else:
                 visible_dots += 1
                 cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)
-
+        
+        
     # Status
     cv2.putText(frame, status, (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
