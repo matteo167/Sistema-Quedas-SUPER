@@ -3,18 +3,21 @@ import mediapipe as mp
 import numpy as np
 import tensorflow as tf
 from picamera2 import Picamera2
-from picamera2.encoders import Encoder
 
 # Set up the camera
 # 640x480 resolution
-# Null encoder is being used (i dont know if a encoder could be helpful here, need to check)
 picam2 = Picamera2()
-video_config = picam2.create_video_configuration(main={"format": "RGB888", "size": (640, 480)}, raw={}, encode="raw")
-picam2.configure(video_config)
-encoder = Encoder() # null encoder
+picam2.configure(picam2.create_preview_configuration(main={"format": "RGB888", "size": (640, 480)}))
 
 mp_pose = mp.solutions.pose
-pose = mp_pose.Pose(model_complexity=0)
+pose = mp_pose.Pose(model_complexity=0) #0: lite; 1: full; 2: heavy
+
+frame_buffer = np.zeros((1, 44, 132)) # The input of the model is a 3D array
+frame_data = np.zeros((33,4)) # This is the structure where the x,y,z and visibility is placed during the capture of the frame
+fall_buffer = [0, 0, 0] 
+
+status = "Loading..."
+color = (255, 0, 0)
 
 # Load the model
 interpreter = tf.lite.Interpreter(model_path='../models/models_tflite/fnet_float_quantization.tflite')
@@ -26,15 +29,7 @@ input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
 # Begin the recording
-picam2.start_recording(encoder, "test.raw")
-
-frame_buffer = np.zeros((1, 44, 132)) # The input of the model is a 3D array
-frame_data = np.zeros((33,4)) # This is the structure where the x,y,z and visibility is placed during the capture of the frame
-fall_buffer = [0, 0, 0] 
-
-status = "Loading..."
-color = (255, 0, 0)
-
+picam2.start()
 
 while True:
     frame = picam2.capture_array() # current frame
@@ -47,9 +42,8 @@ while True:
         # Insertion of a new frame_data
         frame_buffer = np.roll(frame_buffer, -1, axis=1)
         frame_buffer[0, -1] = frame_data.flatten()
-        frame_data.fill(0)
         
-        # Is there 44 frames?
+        # Frame_buffer is filled with landmarks?
         if np.all(frame_buffer != 0):
             input_data = frame_buffer.astype(np.float32)
 
@@ -57,7 +51,7 @@ while True:
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
             sensibilidadeDaQueda = interpreter.get_tensor(output_details[0]['index'])[0][0]
-
+            
             # Checks the sensitivity to falling
             if sensibilidadeDaQueda > 0.97:
                 fall_buffer.pop(0)
@@ -95,7 +89,8 @@ while True:
 
     # To exit the application
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        picam2.stop()
         break
 
-picam2.stop_recording()
+
 cv2.destroyAllWindows()
