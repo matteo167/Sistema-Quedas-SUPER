@@ -11,7 +11,7 @@ picam2.configure(picam2.create_preview_configuration(main={"format": "RGB888"}))
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
-pose = mp_pose.Pose(model_complexity=0)
+pose = mp_pose.Pose(model_complexity=0) # 0 = lite model; 1 = full model; 3 = heavy model
 
 frame_buffer = np.zeros((1, 44, 132)) #The input of the model is a 3D array
 frame_data = np.zeros((33,4)) #Receives the x,y,z and visibility of the frame
@@ -54,7 +54,7 @@ while True:
             #Inference
             interpreter.set_tensor(input_details[0]['index'], input_data)
             interpreter.invoke()
-            
+
             sensibilidadeDaQueda = interpreter.get_tensor(output_details[0]['index'])[0][0]
             
             if sensibilidadeDaQueda > 0.97:
