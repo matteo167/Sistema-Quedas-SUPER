@@ -11,7 +11,6 @@ This repository contains the development of a fall detection system, initiated u
 
   `python3 interface_no_caption.py`
 
-- Testando atualização
 
 
 
