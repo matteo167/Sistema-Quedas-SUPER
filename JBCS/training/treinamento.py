@@ -56,7 +56,7 @@ class MLPMixerLayer(layers.Layer):
         return x
 
 def geraNp (pasta):
-    arquivos_csv = [arquivo for arquivo in os.listdir(pasta) if arquivo.endswith('.csv')]
+    arquivos_csv = [arquivo for arquivo in os.listdir(pasta) if arquivo.endswith('lite_world.csv')]
 
     exemplo_arquivo = pd.read_csv(os.path.join(pasta, arquivos_csv[0]))
     x = len(arquivos_csv)
@@ -70,8 +70,8 @@ def geraNp (pasta):
     
     return dados
 
-quedas = geraNp("key_not_quedas_v2")
-non_quedas = geraNp("key_quedas_v2")
+quedas = geraNp("../dataset/keypoints_processados/not_quedas_keypoints")
+non_quedas = geraNp("../dataset/keypoints_processados/quedas_keypoints")
 
 dados = np.concatenate((quedas, non_quedas), axis=0)
 rotulos = np.array([0] * len(quedas) + [1] * len(non_quedas))

@@ -77,8 +77,8 @@ def geraNp (pasta):
     
     return dados
 
-quedas = geraNp("key_not_quedas_v2")
-non_quedas = geraNp("key_quedas_v2")
+quedas = geraNp("../dataset/keypoints_processados/not_quedas_keypoints")
+non_quedas = geraNp("../dataset/keypoints_processados/quedas_keypoints")
 
 dados = np.concatenate((quedas, non_quedas), axis=0)
 rotulos = np.array([0] * len(quedas) + [1] * len(non_quedas))

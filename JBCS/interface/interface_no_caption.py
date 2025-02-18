@@ -4,13 +4,15 @@ import numpy as np
 from tensorflow import keras
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
 
-print('1: Transformer')
-print('2: Fnet')
-print('3: MLP-Mixer')
-option = input("Choose a model: ")
+# print('1: Transformer')
+# print('2: Fnet')
+# print('3: MLP-Mixer')
+# option = input("Choose a model: ")
+
+option = "1"
 
 if option == "1":
-    loaded_model = keras.models.load_model('../models/trained_model_keras_nlp.keras')
+    loaded_model = keras.models.load_model('../models/trained_model.keras')
 elif option == "2":
     loaded_model = keras.models.load_model('../models/trained_model_FNetEcoder.keras')
 elif option == "3":
