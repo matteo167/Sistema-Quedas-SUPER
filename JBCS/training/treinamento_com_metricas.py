@@ -62,23 +62,34 @@ class MLPMixerLayer(layers.Layer):
         x = x + mlp2_outputs
         return x
 
-def geraNp (pasta):
-    arquivos_csv = [arquivo for arquivo in os.listdir(pasta) if arquivo.endswith('.csv')]
+def geraNp(pastas):
+    # Inicialize uma lista para armazenar todos os dados
+    dados_completos = []
 
-    exemplo_arquivo = pd.read_csv(os.path.join(pasta, arquivos_csv[0]))
-    x = len(arquivos_csv)
-    y, z = exemplo_arquivo.shape
+    # Para cada pasta na lista de pastas
+    for pasta in pastas:
+        arquivos_csv = [arquivo for arquivo in os.listdir(pasta) if arquivo.endswith('world.csv')]
 
-    dados = np.empty((x, y, z))
+        exemplo_arquivo = pd.read_csv(os.path.join(pasta, arquivos_csv[0]))
+        x = len(arquivos_csv)
+        y, z = exemplo_arquivo.shape
 
-    for i, arquivo in enumerate(arquivos_csv):
-        caminho_arquivo = os.path.join(pasta, arquivo)
-        dados[i] = pd.read_csv(caminho_arquivo).to_numpy()
-    
-    return dados
+        dados = np.empty((x, y, z))
 
-quedas = geraNp("../dataset/keypoints_processados/not_quedas_keypoints")
-non_quedas = geraNp("../dataset/keypoints_processados/quedas_keypoints")
+        # Para cada arquivo CSV na pasta
+        for i, arquivo in enumerate(arquivos_csv):
+            caminho_arquivo = os.path.join(pasta, arquivo)
+            dados[i] = pd.read_csv(caminho_arquivo).to_numpy()
+
+        # Adiciona os dados da pasta atual à lista geral
+        dados_completos.append(dados)
+
+    # Concatena todos os dados de todas as pastas
+    return np.concatenate(dados_completos, axis=0)
+
+
+quedas = geraNp(["../dataset/keypoints_processados/not_quedas_keypoints", "../dataset/keypoints_processados/not_quedas_inverted_keypoints"])
+non_quedas = geraNp(["../dataset/keypoints_processados/quedas_keypoints", "../dataset/keypoints_processados/quedas_inverted_keypoints"])
 
 dados = np.concatenate((quedas, non_quedas), axis=0)
 rotulos = np.array([0] * len(quedas) + [1] * len(non_quedas))
