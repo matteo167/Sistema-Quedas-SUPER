@@ -12,11 +12,5 @@ This repository contains the development of a fall detection system, initiated u
   `python3 interface_no_caption.py`
 
 
-## Papers
-
-The above codes were published in 2 articles. an initial version of the fall detector published in SIBGRAPI and an extended version published in JBCS.
-
-
-
 
 
