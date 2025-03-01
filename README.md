@@ -12,6 +12,7 @@ This repository contains the development of a fall detection system, initiated u
   `sudo apt install python3.10 -y`
 
 - Run the following command to install the required dependencies:
+- 
   `python3.10 -m venv ambiente`
   
   `source ambiente/bin/activate`
