@@ -3,7 +3,7 @@
 This repository contains the development of a fall detection system, initiated under the SUPER-UFAM-ICOMP project.
 
 ## Important steps
-- use python 3.10 
+- Use python 3.10 
 
   `sudo add-apt-repository ppa:deadsnakes/ppa -y`
   
