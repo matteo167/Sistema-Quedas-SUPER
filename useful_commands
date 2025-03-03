@@ -1,0 +1,121 @@
+#deleta todos os nomes pós underline
+find . -type f -exec bash -c 'mv "$0" "$(dirname "$0")/$(basename "$0" | sed "s/_.*//")"' {} \;
+
+find full -type f | wc -l
+find heavy -type f | wc -l
+find lite -type f | wc -l
+
+comm -3 <(ls full | sort) <(ls heavy | sort)
+
+
+# deleta tudo o que não está na intersecção
+# Salva os arquivos comuns (apenas nomes) em um arquivo temporário
+comm -12 <(comm -12 <(ls lite | sort) <(ls full | sort)) <(ls heavy | sort) > common_files.txt
+# Deleta arquivos com nome que não estão na lista comum
+for dir in lite full heavy; do
+  for file in $(ls $dir); do
+    if ! grep -qxF "$file" common_files.txt; then
+      echo "$dir/$file"
+      rm -f "$dir/$file"
+    fi
+  done
+done
+# Remove o arquivo temporário
+rm common_files.txt
+
+
+# Printa o que vai ser deletado
+comm -12 <(comm -12 <(ls lite | sort) <(ls full | sort)) <(ls heavy | sort) > common_files.txt
+for dir in lite full heavy; do
+  for file in $(ls $dir); do
+    if ! grep -qxF "$file" common_files.txt; then
+      echo "$dir/$file"
+    fi
+  done
+done
+rm common_files.txt
+
+
+
+
+mkdir -p normalized world
+mv *normalized.csv normalized/
+mv *world.csv world/
+
+
+mkdir -p lite full heavy
+mv *full_world.csv full/
+mv *lite_world.csv lite/
+mv *heavy_world.csv heavy/
+
+
+mkdir -p lite full heavy
+mv *full_normalized.csv full/
+mv *lite_normalized.csv lite/
+mv *heavy_normalized.csv heavy/
+
+
+
+
+
+
+
+
+
+      rm -f "$dir/$file"
+
+
+# Printa o que vai ser deletado
+for dir in inverted/normalized/full inverted/normalized/lite inverted/normalized/heavy not_inverted/normalized/full not_inverted/normalized/lite not_inverted/normalized/heavy; do
+  for file in $(ls $dir); do
+    if ! grep -qxF "$file" comuns.txt; then
+      echo "$dir/$file"
+      rm -f "$dir/$file"
+
+    fi
+  done
+done
+
+# Printa o que vai ser deletado
+for dir in inverted/world/full inverted/world/lite inverted/world/heavy not_inverted/world/full not_inverted/world/lite not_inverted/world/heavy; do
+  for file in $(ls $dir); do
+    if ! grep -qxF "$file" comuns.txt; then
+      echo "$dir/$file"
+      rm -f "$dir/$file"
+    fi
+  done
+done
+
+
+
+# Coleta os arquivos de cada diretório e coloca em arquivos temporários
+find ./not_inverted/world/lite -type f -exec basename {} \; | sort > files_lite_world.txt
+find ./not_inverted/world/full -type f -exec basename {} \; | sort > files_full_world.txt
+find ./not_inverted/world/heavy -type f -exec basename {} \; | sort > files_heavy_world.txt
+find ./not_inverted/normalized/lite -type f -exec basename {} \; | sort > files_lite_normalized.txt
+find ./not_inverted/normalized/full -type f -exec basename {} \; | sort > files_full_normalized.txt
+find ./not_inverted/normalized/heavy -type f -exec basename {} \; | sort > files_heavy_normalized.txt
+find ./inverted/world/lite -type f -exec basename {} \; | sort > files_lite_inverted_world.txt
+find ./inverted/world/full -type f -exec basename {} \; | sort > files_full_inverted_world.txt
+find ./inverted/world/heavy -type f -exec basename {} \; | sort > files_heavy_inverted_world.txt
+find ./inverted/normalized/lite -type f -exec basename {} \; | sort > files_lite_inverted_normalized.txt
+find ./inverted/normalized/full -type f -exec basename {} \; | sort > files_full_inverted_normalized.txt
+find ./inverted/normalized/heavy -type f -exec basename {} \; | sort > files_heavy_inverted_normalized.txt
+
+# Calcula a interseção entre todos os arquivos
+comm -12 files_lite_world.txt files_full_world.txt | \
+comm -12 - files_heavy_world.txt | \
+comm -12 - files_lite_normalized.txt | \
+comm -12 - files_full_normalized.txt | \
+comm -12 - files_heavy_normalized.txt | \
+comm -12 - files_lite_inverted_world.txt | \
+comm -12 - files_full_inverted_world.txt | \
+comm -12 - files_heavy_inverted_world.txt | \
+comm -12 - files_lite_inverted_normalized.txt | \
+comm -12 - files_full_inverted_normalized.txt | \
+comm -12 - files_heavy_inverted_normalized.txt > comuns.txt
+
+# Remove os arquivos temporários
+rm files_*.txt
+
+
