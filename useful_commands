@@ -71,7 +71,6 @@ for dir in inverted/normalized/full inverted/normalized/lite inverted/normalized
     if ! grep -qxF "$file" comuns.txt; then
       echo "$dir/$file"
       rm -f "$dir/$file"
-
     fi
   done
 done

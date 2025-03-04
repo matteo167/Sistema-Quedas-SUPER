@@ -1,43 +1,53 @@
-#objetivo do código, separar pontos chave nos conjuntos de treino, teste e validação.
-
 import os
+import shutil
 import random
+import sys
 
-def separar_arquivos(diretorio_origem, proporcoes=(0.6, 0.2, 0.2)):
-    """
-    Separa os arquivos do diretório de origem em três pastas: treino, teste e validação.
-    :param diretorio_origem: Caminho da pasta onde os arquivos estão localizados.
-    :param proporcoes: Tuple com a proporção para treino, teste e validação, respectivamente.
-    """
-    # Criar diretórios de destino
-    treino_dir = os.path.join(diretorio_origem, "treino")
-    teste_dir = os.path.join(diretorio_origem, "teste")
-    validacao_dir = os.path.join(diretorio_origem, "validacao")
-    os.makedirs(treino_dir, exist_ok=True)
-    os.makedirs(teste_dir, exist_ok=True)
-    os.makedirs(validacao_dir, exist_ok=True)
+def split_dataset(directory, train_ratio=0.6, test_ratio=0.2, val_ratio=0.2, seed=42):
+    assert train_ratio + test_ratio + val_ratio == 1, "As proporções devem somar 1"
     
-    # Obter lista de arquivos
-    arquivos = [f for f in os.listdir(diretorio_origem) if os.path.isfile(os.path.join(diretorio_origem, f))]
-    random.shuffle(arquivos)  # Embaralha os arquivos para distribuição aleatória
+    # Configurar a semente aleatória para garantir a mesma ordem de embaralhamento
+    random.seed(seed)
     
-    # Definir quantidades
-    total_arquivos = len(arquivos)
-    n_treino = int(total_arquivos * proporcoes[0])
-    n_teste = int(total_arquivos * proporcoes[1])
+    # Criando diretórios de saída dentro do diretório de origem
+    train_dir = os.path.join(directory, 'train')
+    test_dir = os.path.join(directory, 'test')
+    val_dir = os.path.join(directory, 'val')
     
-    # Distribuir arquivos
-    for i, arquivo in enumerate(arquivos):
-        origem = os.path.join(diretorio_origem, arquivo)
-        if i < n_treino:
-            destino = os.path.join(treino_dir, arquivo)
-        elif i < n_treino + n_teste:
-            destino = os.path.join(teste_dir, arquivo)
-        else:
-            destino = os.path.join(validacao_dir, arquivo)
-        os.rename(origem, destino)  # Move o arquivo renomeando seu caminho
+    os.makedirs(train_dir, exist_ok=True)
+    os.makedirs(test_dir, exist_ok=True)
+    os.makedirs(val_dir, exist_ok=True)
     
-    print(f"Arquivos distribuídos: {n_treino} treino, {n_teste} teste, {total_arquivos - n_treino - n_teste} validação.")
+    # Pegando todos os arquivos do diretório de origem, excluindo as pastas criadas
+    files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    random.shuffle(files)  # Embaralha os arquivos
+    
+    # Definindo quantidades para cada conjunto
+    total_files = len(files)
+    train_count = int(total_files * train_ratio)
+    test_count = int(total_files * test_ratio)
+    val_count = total_files - train_count - test_count  # Garantir que todos os arquivos sejam utilizados
+    
+    # Separando os arquivos
+    train_files = files[:train_count]
+    test_files = files[train_count:train_count + test_count]
+    val_files = files[train_count + test_count:]
+    
+    # Movendo arquivos para as pastas correspondentes
+    for f in train_files:
+        shutil.move(os.path.join(directory, f), os.path.join(train_dir, f))
+    for f in test_files:
+        shutil.move(os.path.join(directory, f), os.path.join(test_dir, f))
+    for f in val_files:
+        shutil.move(os.path.join(directory, f), os.path.join(val_dir, f))
+    
+    print(f"Arquivos distribuídos: {len(train_files)} treino, {len(test_files)} teste, {len(val_files)} validação.")
 
 # Exemplo de uso
-separar_arquivos("pasta_teste")
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Uso: python script.py <caminho_do_diretorio>")
+        sys.exit(1)
+    
+    directory = sys.argv[1]
+    split_dataset(directory)
