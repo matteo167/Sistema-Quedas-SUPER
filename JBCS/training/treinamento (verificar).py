@@ -1,3 +1,4 @@
+#treinamento sem métricas
 #código desatualizado, ajustar
 
 import os
@@ -124,7 +125,7 @@ early_stopping = EarlyStopping(monitor='val_loss',
 
 model.fit(X_train, y_train, epochs=1000, batch_size=32, validation_split=0.2, callbacks=[early_stopping])
 
-model.save('trained_model.keras')
+model.save('../models/trained_model.keras')
 
 print('Evaluate')
 model.evaluate(X_test, y_test)
