@@ -4,6 +4,7 @@ import numpy as np
 from tensorflow import keras
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
 
+
 # print('1: Transformer')
 # print('2: Fnet')
 # print('3: MLP-Mixer')
