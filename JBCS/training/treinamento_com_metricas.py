@@ -63,7 +63,7 @@ class MLPMixerLayer(layers.Layer):
         return x
 
 def geraNp (pasta):
-    arquivos_csv = [arquivo for arquivo in os.listdir(pasta) if arquivo.endswith('.csv')]
+    arquivos_csv = [arquivo for arquivo in os.listdir(pasta)]
 
     exemplo_arquivo = pd.read_csv(os.path.join(pasta, arquivos_csv[0]))
     x = len(arquivos_csv)
@@ -183,4 +183,5 @@ plt.show()
 num_params = model.count_params()
 print(f'Number of parameters in the saved model: {num_params}')
 
-model.save('trained_model.keras')
+model.save('../models/trained_model.keras')
+

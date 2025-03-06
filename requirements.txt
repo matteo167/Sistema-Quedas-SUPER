@@ -10,3 +10,5 @@ keras-core==0.1.7
 keras-nlp==0.7.0
 opencv-contrib-python==4.9.0.80
 opencv-python==4.9.0.80
+scikit-learn==1.6.1
+numpy==1.26.4
