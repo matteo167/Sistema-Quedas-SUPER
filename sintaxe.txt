@@ -1,0 +1,34 @@
+model_(inverção)_(orientação)_(extrator)_(encoder).keras
+
+--inversion nI --orientation N --extrator F --encoder Reg
+
+inverção: nI or I
+orientação: N or W
+extrator: F,L,H,LF,LH,FH,LFH
+encode: Reg, Fnet, Mlp
+
+21 treinamentos iniciais:
+
+python3 only_training model_nI_N_L_Reg
+python3 only_training model_nI_N_F_Reg
+python3 only_training model_nI_N_H_Reg
+python3 only_training model_nI_N_LF_Reg
+python3 only_training model_nI_N_LH_Reg
+python3 only_training model_nI_N_FH_Reg
+python3 only_training model_nI_N_LFH_Reg
+
+python3 only_training model_nI_N_L_Fnet
+python3 only_training model_nI_N_F_Fnet
+python3 only_training model_nI_N_H_Fnet
+python3 only_training model_nI_N_LF_Fnet
+python3 only_training model_nI_N_LH_Fnet
+python3 only_training model_nI_N_FH_Fnet
+python3 only_training model_nI_N_LFH_Fnet
+
+python3 only_training model_nI_N_L_Mlp
+python3 only_training model_nI_N_F_Mlp
+python3 only_training model_nI_N_H_Mlp
+python3 only_training model_nI_N_LF_Mlp
+python3 only_training model_nI_N_LH_Mlp
+python3 only_training model_nI_N_FH_Mlp
+python3 only_training model_nI_N_LFH_Mlp
