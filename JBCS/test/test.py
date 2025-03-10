@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
-
+from keras import layers
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc, accuracy_score, precision_score, recall_score, f1_score
 import matplotlib.pyplot as plt
 import sys
@@ -64,8 +64,58 @@ test_dados = np.concatenate((test_quedas, test_non_quedas), axis=0)
 # Criar os rótulos para o conjunto de teste
 test_rotulos = np.array([1] * len(test_quedas) + [0] * len(test_non_quedas))
 
+
+
+
+
+from tensorflow.keras.saving import register_keras_serializable
+import tensorflow_addons as tfa
+
+
+@register_keras_serializable()
+class MLPMixerLayer(layers.Layer):
+    def __init__(self, num_patches, intermediate_dim, dropout_rate, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.mlp1 = keras.Sequential(
+            [
+                layers.Dense(units=num_patches),
+                tfa.layers.GELU(),
+                layers.Dense(units=num_patches),
+                layers.Dropout(rate=dropout_rate),
+            ]
+        )
+        self.mlp2 = keras.Sequential(
+            [
+                layers.Dense(units=num_patches),
+                tfa.layers.GELU(),
+                layers.Dense(units=intermediate_dim),
+                layers.Dropout(rate=dropout_rate),
+            ]
+        )
+        self.normalize = layers.LayerNormalization(epsilon=1e-6)
+
+    def call(self, inputs):
+        # Apply layer normalization.
+        x = self.normalize(inputs)
+        # Transpose inputs from [num_batches, num_patches, hidden_units] to [num_batches, hidden_units, num_patches].
+        x_channels = tf.linalg.matrix_transpose(x)
+        # Apply mlp1 on each channel independently.
+        mlp1_outputs = self.mlp1(x_channels)
+        # Transpose mlp1_outputs from [num_batches, hidden_dim, num_patches] to [num_batches, num_patches, hidden_units].
+        mlp1_outputs = tf.linalg.matrix_transpose(mlp1_outputs)
+        # Add skip connection.
+        x = mlp1_outputs + inputs
+        # Apply layer normalization.
+        x_patches = self.normalize(x)
+        # Apply mlp2 on each patch independtenly.
+        mlp2_outputs = self.mlp2(x_patches)
+        # Add skip connection.
+        x = x + mlp2_outputs
+        return x
+    
 # Carregar o modelo treinado
-model = keras.models.load_model('../models/' + model_name + '.keras')
+model = keras.models.load_model("../models/" + model_name + ".keras", custom_objects={'MLPMixerLayer': MLPMixerLayer})
 
 # Predições no conjunto de teste
 y_pred = model.predict(test_dados)

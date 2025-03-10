@@ -52,7 +52,7 @@ python3.10 test.py nI_N_L_Mlp normalized/lite/test
 python3.10 test.py nI_N_L_Mlp normalized/full/test
 python3.10 test.py nI_N_L_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_F_Reg normalized/lite/test
 python3.10 test.py nI_N_F_Reg normalized/full/test
@@ -66,7 +66,7 @@ python3.10 test.py nI_N_F_Mlp normalized/lite/test
 python3.10 test.py nI_N_F_Mlp normalized/full/test
 python3.10 test.py nI_N_F_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_H_Reg normalized/lite/test
 python3.10 test.py nI_N_H_Reg normalized/full/test
@@ -80,7 +80,7 @@ python3.10 test.py nI_N_H_Mlp normalized/lite/test
 python3.10 test.py nI_N_H_Mlp normalized/full/test
 python3.10 test.py nI_N_H_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_LF_Reg normalized/lite/test
 python3.10 test.py nI_N_LF_Reg normalized/full/test
@@ -94,7 +94,7 @@ python3.10 test.py nI_N_LF_Mlp normalized/lite/test
 python3.10 test.py nI_N_LF_Mlp normalized/full/test
 python3.10 test.py nI_N_LF_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_LH_Reg normalized/lite/test
 python3.10 test.py nI_N_LH_Reg normalized/full/test
@@ -108,7 +108,7 @@ python3.10 test.py nI_N_LH_Mlp normalized/lite/test
 python3.10 test.py nI_N_LH_Mlp normalized/full/test
 python3.10 test.py nI_N_LH_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_FH_Reg normalized/lite/test
 python3.10 test.py nI_N_FH_Reg normalized/full/test
@@ -122,7 +122,7 @@ python3.10 test.py nI_N_FH_Mlp normalized/lite/test
 python3.10 test.py nI_N_FH_Mlp normalized/full/test
 python3.10 test.py nI_N_FH_Mlp normalized/heavy/test
 
-----
+#----
 
 python3.10 test.py nI_N_LFH_Reg normalized/lite/test
 python3.10 test.py nI_N_LFH_Reg normalized/full/test
