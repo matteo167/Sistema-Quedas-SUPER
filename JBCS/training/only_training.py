@@ -104,6 +104,8 @@ pastas_non_quedas_val = []
 pastas_quedas_val = []
 
 
+
+
 for letra in str(args.extractor):
     if (letra == "L"):
         pastas_non_quedas_treino.append("../dataset/keypoints/not_quedas/@/$/lite/train")
@@ -144,9 +146,23 @@ if(args.inversion == "I"):
 if(args.inversion == "bothI"):
     for pasta in pastas_non_quedas_treino[:]:
         pastas_non_quedas_treino.append(pasta.replace('@', 'not_inverted'))
-
     for i in range(len(pastas_non_quedas_treino)):
         pastas_non_quedas_treino[i] = pastas_non_quedas_treino[i].replace('@', 'inverted')
+
+    for pasta in pastas_quedas_treino[:]:
+        pastas_quedas_treino.append(pasta.replace('@', 'not_inverted'))
+    for i in range(len(pastas_quedas_treino)):
+        pastas_quedas_treino[i] = pastas_quedas_treino[i].replace('@', 'inverted')
+
+    for pasta in pastas_non_quedas_val[:]:
+        pastas_non_quedas_val.append(pasta.replace('@', 'not_inverted'))
+    for i in range(len(pastas_non_quedas_val)):
+        pastas_non_quedas_val[i] = pastas_non_quedas_val[i].replace('@', 'inverted')
+
+    for pasta in pastas_quedas_val[:]:
+        pastas_quedas_val.append(pasta.replace('@', 'not_inverted'))
+    for i in range(len(pastas_quedas_val)):
+        pastas_quedas_val[i] = pastas_quedas_val[i].replace('@', 'inverted')
     
 
 if(args.orientation == "N"):

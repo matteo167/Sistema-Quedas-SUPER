@@ -1,0 +1,29 @@
+python3.10 only_training.py --inversion bothI --orientation W --extractor L --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor F --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor H --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor LF --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor LH --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor FH --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation W --extractor LFH --encoder Reg
+
+python3.10 only_training.py --inversion bothI --orientation W --extractor L --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor F --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor H --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor LF --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor LH --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor FH --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation W --extractor LFH --encoder Fnet
+
+python3.10 only_training.py --inversion bothI --orientation W --extractor L --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor F --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor H --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor LF --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor LH --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor FH --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation W --extractor LFH --encoder Mlp
+
+for model in "bothI_W_L_Reg" "bothI_W_L_Fnet" "bothI_W_L_Mlp" "bothI_W_F_Reg" "bothI_W_F_Fnet" "bothI_W_F_Mlp" "bothI_W_H_Reg" "bothI_W_H_Fnet" "bothI_W_H_Mlp" "bothI_W_LF_Reg" "bothI_W_LF_Fnet" "bothI_W_LF_Mlp" "bothI_W_LH_Reg" "bothI_W_LH_Fnet" "bothI_W_LH_Mlp" "bothI_W_FH_Reg" "bothI_W_FH_Fnet" "bothI_W_FH_Mlp" "bothI_W_LFH_Reg" "bothI_W_LFH_Fnet" "bothI_W_LFH_Mlp"; do
+  for norm in "world/lite/test" "world/full/test" "world/heavy/test"; do
+    python3.10 test.py $model $norm
+  done
+done

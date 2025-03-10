@@ -164,7 +164,7 @@ recall = recall_score(test_rotulos, y_pred_binary)
 f1 = f1_score(test_rotulos, y_pred_binary)
 
 
-result_file = f'../results/resultados.txt'
+result_file = f'../results/resultadosV3.txt'
 
 with open(result_file, 'a') as f:
     f.write(f'\nModelo: {model_name}\n')

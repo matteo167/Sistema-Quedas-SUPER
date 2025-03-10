@@ -1,0 +1,134 @@
+21 treinamentos iniciais:
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Reg
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Fnet
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Mlp
+
+
+
+
+63 validações iniciais
+
+for model in "nI_N_L_Reg" "nI_N_L_Fnet" "nI_N_L_Mlp" "nI_N_F_Reg" "nI_N_F_Fnet" "nI_N_F_Mlp" "nI_N_H_Reg" "nI_N_H_Fnet" "nI_N_H_Mlp" "nI_N_LF_Reg" "nI_N_LF_Fnet" "nI_N_LF_Mlp" "nI_N_LH_Reg" "nI_N_LH_Fnet" "nI_N_LH_Mlp" "nI_N_FH_Reg" "nI_N_FH_Fnet" "nI_N_FH_Mlp" "nI_N_LFH_Reg" "nI_N_LFH_Fnet" "nI_N_LFH_Mlp"; do
+  for norm in "normalized/lite/test" "normalized/full/test" "normalized/heavy/test"; do
+    python3.10 test.py $model $norm
+  done
+done
+
+ou
+
+python3.10 test.py nI_N_L_Reg normalized/lite/test
+python3.10 test.py nI_N_L_Reg normalized/full/test
+python3.10 test.py nI_N_L_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_L_Fnet normalized/lite/test
+python3.10 test.py nI_N_L_Fnet normalized/full/test
+python3.10 test.py nI_N_L_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_L_Mlp normalized/lite/test
+python3.10 test.py nI_N_L_Mlp normalized/full/test
+python3.10 test.py nI_N_L_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_F_Reg normalized/lite/test
+python3.10 test.py nI_N_F_Reg normalized/full/test
+python3.10 test.py nI_N_F_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_F_Fnet normalized/lite/test
+python3.10 test.py nI_N_F_Fnet normalized/full/test
+python3.10 test.py nI_N_F_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_F_Mlp normalized/lite/test
+python3.10 test.py nI_N_F_Mlp normalized/full/test
+python3.10 test.py nI_N_F_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_H_Reg normalized/lite/test
+python3.10 test.py nI_N_H_Reg normalized/full/test
+python3.10 test.py nI_N_H_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_H_Fnet normalized/lite/test
+python3.10 test.py nI_N_H_Fnet normalized/full/test
+python3.10 test.py nI_N_H_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_H_Mlp normalized/lite/test
+python3.10 test.py nI_N_H_Mlp normalized/full/test
+python3.10 test.py nI_N_H_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_LF_Reg normalized/lite/test
+python3.10 test.py nI_N_LF_Reg normalized/full/test
+python3.10 test.py nI_N_LF_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LF_Fnet normalized/lite/test
+python3.10 test.py nI_N_LF_Fnet normalized/full/test
+python3.10 test.py nI_N_LF_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LF_Mlp normalized/lite/test
+python3.10 test.py nI_N_LF_Mlp normalized/full/test
+python3.10 test.py nI_N_LF_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_LH_Reg normalized/lite/test
+python3.10 test.py nI_N_LH_Reg normalized/full/test
+python3.10 test.py nI_N_LH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LH_Fnet normalized/lite/test
+python3.10 test.py nI_N_LH_Fnet normalized/full/test
+python3.10 test.py nI_N_LH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LH_Mlp normalized/lite/test
+python3.10 test.py nI_N_LH_Mlp normalized/full/test
+python3.10 test.py nI_N_LH_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_FH_Reg normalized/lite/test
+python3.10 test.py nI_N_FH_Reg normalized/full/test
+python3.10 test.py nI_N_FH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_FH_Fnet normalized/lite/test
+python3.10 test.py nI_N_FH_Fnet normalized/full/test
+python3.10 test.py nI_N_FH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_FH_Mlp normalized/lite/test
+python3.10 test.py nI_N_FH_Mlp normalized/full/test
+python3.10 test.py nI_N_FH_Mlp normalized/heavy/test
+
+#----
+
+python3.10 test.py nI_N_LFH_Reg normalized/lite/test
+python3.10 test.py nI_N_LFH_Reg normalized/full/test
+python3.10 test.py nI_N_LFH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LFH_Fnet normalized/lite/test
+python3.10 test.py nI_N_LFH_Fnet normalized/full/test
+python3.10 test.py nI_N_LFH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LFH_Mlp normalized/lite/test
+python3.10 test.py nI_N_LFH_Mlp normalized/full/test
+python3.10 test.py nI_N_LFH_Mlp normalized/heavy/test

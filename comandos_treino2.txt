@@ -1,0 +1,29 @@
+python3.10 only_training.py --inversion bothI --orientation N --extractor L --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor F --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor H --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor LF --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor LH --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor FH --encoder Reg
+python3.10 only_training.py --inversion bothI --orientation N --extractor LFH --encoder Reg
+
+python3.10 only_training.py --inversion bothI --orientation N --extractor L --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor F --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor H --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor LF --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor LH --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor FH --encoder Fnet
+python3.10 only_training.py --inversion bothI --orientation N --extractor LFH --encoder Fnet
+
+python3.10 only_training.py --inversion bothI --orientation N --extractor L --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor F --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor H --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor LF --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor LH --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor FH --encoder Mlp
+python3.10 only_training.py --inversion bothI --orientation N --extractor LFH --encoder Mlp
+
+for model in "bothI_N_L_Reg" "bothI_N_L_Fnet" "bothI_N_L_Mlp" "bothI_N_F_Reg" "bothI_N_F_Fnet" "bothI_N_F_Mlp" "bothI_N_H_Reg" "bothI_N_H_Fnet" "bothI_N_H_Mlp" "bothI_N_LF_Reg" "bothI_N_LF_Fnet" "bothI_N_LF_Mlp" "bothI_N_LH_Reg" "bothI_N_LH_Fnet" "bothI_N_LH_Mlp" "bothI_N_FH_Reg" "bothI_N_FH_Fnet" "bothI_N_FH_Mlp" "bothI_N_LFH_Reg" "bothI_N_LFH_Fnet" "bothI_N_LFH_Mlp"; do
+  for norm in "normalized/lite/test" "normalized/full/test" "normalized/heavy/test"; do
+    python3.10 test.py $model $norm
+  done
+done
