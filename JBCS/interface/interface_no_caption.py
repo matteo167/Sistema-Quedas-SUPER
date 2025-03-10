@@ -11,14 +11,14 @@ from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionE
 # print('3: MLP-Mixer')
 # option = input("Choose a model: ")
 
-option = "1"
+option = "3"
 
 if option == "1":
     loaded_model = keras.models.load_model('../models/trained_model.keras')
 elif option == "2":
     loaded_model = keras.models.load_model('../models/trained_model_FNetEcoder.keras')
 elif option == "3":
-    loaded_model = keras.models.load_model('../models/trained_model_MLPMixer.keras')
+    loaded_model = keras.models.load_model('../models/nI_N_F_Mlp.keras')
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()

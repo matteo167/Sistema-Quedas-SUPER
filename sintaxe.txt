@@ -9,26 +9,129 @@ encode: Reg, Fnet, Mlp
 
 21 treinamentos iniciais:
 
-python3 only_training model_nI_N_L_Reg
-python3 only_training model_nI_N_F_Reg
-python3 only_training model_nI_N_H_Reg
-python3 only_training model_nI_N_LF_Reg
-python3 only_training model_nI_N_LH_Reg
-python3 only_training model_nI_N_FH_Reg
-python3 only_training model_nI_N_LFH_Reg
 
-python3 only_training model_nI_N_L_Fnet
-python3 only_training model_nI_N_F_Fnet
-python3 only_training model_nI_N_H_Fnet
-python3 only_training model_nI_N_LF_Fnet
-python3 only_training model_nI_N_LH_Fnet
-python3 only_training model_nI_N_FH_Fnet
-python3 only_training model_nI_N_LFH_Fnet
 
-python3 only_training model_nI_N_L_Mlp
-python3 only_training model_nI_N_F_Mlp
-python3 only_training model_nI_N_H_Mlp
-python3 only_training model_nI_N_LF_Mlp
-python3 only_training model_nI_N_LH_Mlp
-python3 only_training model_nI_N_FH_Mlp
-python3 only_training model_nI_N_LFH_Mlp
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Reg
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Reg
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Fnet
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Fnet
+
+python3.10 only_training.py --inversion nI --orientation N --extractor L --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor F --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor H --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LF --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LH --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor FH --encoder Mlp
+python3.10 only_training.py --inversion nI --orientation N --extractor LFH --encoder Mlp
+
+
+
+63 validações iniciais
+
+python3.10 test.py nI_N_L_Reg normalized/lite/test
+python3.10 test.py nI_N_L_Reg normalized/full/test
+python3.10 test.py nI_N_L_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_L_Fnet normalized/lite/test
+python3.10 test.py nI_N_L_Fnet normalized/full/test
+python3.10 test.py nI_N_L_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_L_Mlp normalized/lite/test
+python3.10 test.py nI_N_L_Mlp normalized/full/test
+python3.10 test.py nI_N_L_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_F_Reg normalized/lite/test
+python3.10 test.py nI_N_F_Reg normalized/full/test
+python3.10 test.py nI_N_F_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_F_Fnet normalized/lite/test
+python3.10 test.py nI_N_F_Fnet normalized/full/test
+python3.10 test.py nI_N_F_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_F_Mlp normalized/lite/test
+python3.10 test.py nI_N_F_Mlp normalized/full/test
+python3.10 test.py nI_N_F_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_H_Reg normalized/lite/test
+python3.10 test.py nI_N_H_Reg normalized/full/test
+python3.10 test.py nI_N_H_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_H_Fnet normalized/lite/test
+python3.10 test.py nI_N_H_Fnet normalized/full/test
+python3.10 test.py nI_N_H_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_H_Mlp normalized/lite/test
+python3.10 test.py nI_N_H_Mlp normalized/full/test
+python3.10 test.py nI_N_H_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_LF_Reg normalized/lite/test
+python3.10 test.py nI_N_LF_Reg normalized/full/test
+python3.10 test.py nI_N_LF_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LF_Fnet normalized/lite/test
+python3.10 test.py nI_N_LF_Fnet normalized/full/test
+python3.10 test.py nI_N_LF_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LF_Mlp normalized/lite/test
+python3.10 test.py nI_N_LF_Mlp normalized/full/test
+python3.10 test.py nI_N_LF_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_LH_Reg normalized/lite/test
+python3.10 test.py nI_N_LH_Reg normalized/full/test
+python3.10 test.py nI_N_LH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LH_Fnet normalized/lite/test
+python3.10 test.py nI_N_LH_Fnet normalized/full/test
+python3.10 test.py nI_N_LH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LH_Mlp normalized/lite/test
+python3.10 test.py nI_N_LH_Mlp normalized/full/test
+python3.10 test.py nI_N_LH_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_FH_Reg normalized/lite/test
+python3.10 test.py nI_N_FH_Reg normalized/full/test
+python3.10 test.py nI_N_FH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_FH_Fnet normalized/lite/test
+python3.10 test.py nI_N_FH_Fnet normalized/full/test
+python3.10 test.py nI_N_FH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_FH_Mlp normalized/lite/test
+python3.10 test.py nI_N_FH_Mlp normalized/full/test
+python3.10 test.py nI_N_FH_Mlp normalized/heavy/test
+
+----
+
+python3.10 test.py nI_N_LFH_Reg normalized/lite/test
+python3.10 test.py nI_N_LFH_Reg normalized/full/test
+python3.10 test.py nI_N_LFH_Reg normalized/heavy/test
+
+python3.10 test.py nI_N_LFH_Fnet normalized/lite/test
+python3.10 test.py nI_N_LFH_Fnet normalized/full/test
+python3.10 test.py nI_N_LFH_Fnet normalized/heavy/test
+
+python3.10 test.py nI_N_LFH_Mlp normalized/lite/test
+python3.10 test.py nI_N_LFH_Mlp normalized/full/test
+python3.10 test.py nI_N_LFH_Mlp normalized/heavy/test

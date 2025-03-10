@@ -19,7 +19,6 @@ parser.add_argument("--encoder", choices=["Reg", "Fnet", "Mlp"], required=True, 
 
 args = parser.parse_args()
 
-
 # Defina uma semente aleatória para reproduzir os mesmos resultados
 seed = 42
 np.random.seed(seed)
@@ -27,6 +26,9 @@ tf.random.set_seed(seed)
 tf.config.experimental.enable_op_determinism()
 
 
+from tensorflow.keras.saving import register_keras_serializable
+
+@register_keras_serializable()
 class MLPMixerLayer(layers.Layer):
     def __init__(self, num_patches, intermediate_dim, dropout_rate, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,6 +70,7 @@ class MLPMixerLayer(layers.Layer):
         x = x + mlp2_outputs
         return x
 
+keras.utils.get_custom_objects()['MLPMixerLayer'] = MLPMixerLayer
 
 def geraNp(pastas):
     # Recebe uma lista de pastas
@@ -101,11 +104,7 @@ pastas_non_quedas_val = []
 pastas_quedas_val = []
 
 
-
-extratores = str(args.extractor) 
-
-while(extratores !=""):
-    letra = extratores[-1]
+for letra in str(args.extractor):
     if (letra == "L"):
         pastas_non_quedas_treino.append("../dataset/keypoints/not_quedas/@/$/lite/train")
         pastas_quedas_treino.append("../dataset/keypoints/quedas/@/$/lite/train")
@@ -121,7 +120,6 @@ while(extratores !=""):
         pastas_quedas_treino.append("../dataset/keypoints/quedas/@/$/heavy/train")
         pastas_non_quedas_val.append("../dataset/keypoints/not_quedas/@/$/heavy/val")
         pastas_quedas_val.append("../dataset/keypoints/quedas/@/$/heavy/val")
-    extratores = extratores[:-1]
 
 if(args.inversion == "nI"):
     for i in range(len(pastas_non_quedas_treino)):
@@ -221,4 +219,4 @@ early_stopping = EarlyStopping(monitor='val_loss',
 history = model.fit(train_dados, train_rotulos, epochs=1000, batch_size=32, validation_data=(val_dados, val_rotulos), callbacks=[early_stopping])
 
 # Salvar o modelo treinado
-model.save('../models/trained_model.keras')
+model.save("../models/" + args.inversion + "_" + args.orientation + "_" + args.extractor + "_" + args.encoder + ".keras")

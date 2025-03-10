@@ -1,0 +1,63 @@
+
+Modelo: nI_N_L_Reg
+Conj. teste: normalized/lite/test
+Precisão: 0.9597
+Revocação: 0.9917
+Acurácia: 0.9749
+F1-Score: 0.9754
+Nº de parâmetros: 86733
+----------------------------------------
+
+Modelo: nI_N_L_Reg
+Conj. teste: normalized/full/test
+Precisão: 0.9781
+Revocação: 0.9917
+Acurácia: 0.9847
+F1-Score: 0.9848
+Nº de parâmetros: 86733
+----------------------------------------
+
+Modelo: nI_N_L_Reg
+Conj. teste: normalized/heavy/test
+Precisão: 0.9834
+Revocação: 0.9889
+Acurácia: 0.9861
+F1-Score: 0.9861
+Nº de parâmetros: 86733
+----------------------------------------
+
+Modelo: nI_N_L_Fnet
+Conj. teste: normalized/lite/test
+Precisão: 0.9649
+Revocação: 0.9917
+Acurácia: 0.9777
+F1-Score: 0.9781
+Nº de parâmetros: 18633
+----------------------------------------
+
+Modelo: nI_N_L_Fnet
+Conj. teste: normalized/full/test
+Precisão: 0.9597
+Revocação: 0.9917
+Acurácia: 0.9749
+F1-Score: 0.9754
+Nº de parâmetros: 18633
+----------------------------------------
+
+Modelo: nI_N_L_Fnet
+Conj. teste: normalized/heavy/test
+Precisão: 0.9647
+Revocação: 0.9861
+Acurácia: 0.9749
+F1-Score: 0.9753
+Nº de parâmetros: 18633
+----------------------------------------
+
+Modelo: nI_N_L_Reg
+Conj. teste: normalized/lite/test
+Precisão: 0.9597
+Revocação: 0.9917
+Acurácia: 0.9749
+F1-Score: 0.9754
+Nº de parâmetros: 86733
+----------------------------------------

@@ -3,8 +3,10 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
-from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc
+
+from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc, accuracy_score, precision_score, recall_score, f1_score
 import matplotlib.pyplot as plt
+import sys
 
 
 from keras_nlp.layers import TransformerEncoder, SinePositionEncoding, PositionEmbedding
@@ -39,11 +41,19 @@ def geraNp(pastas):
     return np.concatenate(dados, axis=0)
 
 
+
+if len(sys.argv) < 3:
+    print("Uso: python script.py <nome_do_modelo> <pasta_de_teste>")
+    sys.exit(1)
+
+model_name = sys.argv[1]
+test_folder = sys.argv[2]
+
 # Carregar os dados de teste
-pastas_quedas_test = ["../dataset/keypoints/not_quedas/inverted/normalized/full/test", 
-                      "../dataset/keypoints/not_quedas/not_inverted/normalized/full/test"]
-pastas_non_quedas_test = ["../dataset/keypoints/quedas/inverted/normalized/full/test", 
-                          "../dataset/keypoints/quedas/not_inverted/normalized/full/test"]
+pastas_quedas_test = ["../dataset/keypoints/not_quedas/inverted/" + test_folder, 
+                      "../dataset/keypoints/not_quedas/not_inverted/" + test_folder]
+pastas_non_quedas_test = ["../dataset/keypoints/quedas/inverted/" + test_folder, 
+                          "../dataset/keypoints/quedas/not_inverted/" + test_folder]
 
 test_quedas = geraNp(pastas_quedas_test)
 test_non_quedas = geraNp(pastas_non_quedas_test)
@@ -52,10 +62,10 @@ test_non_quedas = geraNp(pastas_non_quedas_test)
 test_dados = np.concatenate((test_quedas, test_non_quedas), axis=0)
 
 # Criar os rótulos para o conjunto de teste
-test_rotulos = np.array([0] * len(test_quedas) + [1] * len(test_non_quedas))
+test_rotulos = np.array([1] * len(test_quedas) + [0] * len(test_non_quedas))
 
 # Carregar o modelo treinado
-model = keras.models.load_model('../models/trained_model.keras')
+model = keras.models.load_model('../models/' + model_name + '.keras')
 
 # Predições no conjunto de teste
 y_pred = model.predict(test_dados)
@@ -88,3 +98,30 @@ plt.show()
 # Número de parâmetros no modelo
 num_params = model.count_params()
 print(f'Number of parameters in the saved model: {num_params}')
+
+
+
+# Predições no conjunto de teste
+y_pred = model.predict(test_dados)
+
+# Converter probabilidades para previsões binárias
+y_pred_binary = (y_pred > 0.5).astype(int)
+
+# Cálculo das métricas corretas
+accuracy = accuracy_score(test_rotulos, y_pred_binary)
+precision = precision_score(test_rotulos, y_pred_binary)
+recall = recall_score(test_rotulos, y_pred_binary)
+f1 = f1_score(test_rotulos, y_pred_binary)
+
+
+result_file = f'../results/resultados.txt'
+
+with open(result_file, 'a') as f:
+    f.write(f'\nModelo: {model_name}\n')
+    f.write(f'Conj. teste: {test_folder}\n')
+    f.write(f'Precisão: {precision:.4f}\n')
+    f.write(f'Revocação: {recall:.4f}\n')
+    f.write(f'Acurácia: {accuracy:.4f}\n')
+    f.write(f'F1-Score: {f1:.4f}\n')
+    f.write(f'Nº de parâmetros: {num_params}\n')
+    f.write('-' * 40 + '\n')
